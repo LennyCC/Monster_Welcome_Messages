@@ -7,16 +7,49 @@
     <title>JavaScript Messages</title>
 </head>
 <body>
-    <div id="output"></div>
-    <label>Name:</label><input type="text" placeholder="Type your name">
-    <button>Message</button>
+    <div id="app">
+    <div v-show="confirmedMessage" id="output"> Welcome back, {{confirmedMessage}}</div>
+    <!--3 v-model se va al tag input, lo que hace es cuando cambiamos e lvalor del mismo 
+     -->
+    <label>Name:</label><input type="text" placeholder="Type your name" v-model="message">
+    <!--4 añadimos click para invocar la función-->
+    <button @click="showMessage">Message</button> </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <script> 
+    // 1- Instanciar Vue y montamos la aplicación sobre un tag HTML qaue hará las funciones contenedor de la App
+    const app = Vue.createApp({
+        data() {
+            return {
+                    //2 necesitamos guardar en una var. el valor que el usuario introduce en el input
+                    //para mostrarlo en un elemento DOM diferente. Tenemos que inicializar la var. con un valor que represenre finalmente nuestro estado inicial
+                    // de la APP . En ese caso string vacío
+                message: '',
+
+                confirmedMessage: '',
+
+                    
+                }
+            },
+            methods: {
+                showMessage(){
+                    //
+                    this.confirmedMessage = this.message
+                }
+            }
+
+
+        })
+        app.mount('#app')
+    </script>
 </body>
-<script>
+<!--<script>
     const btn = document.querySelector('button');
     btn.addEventListener('click', function(){
         const output = document.querySelector('#output');
         const name = document.querySelector('input').value;
         output.innerHTML = `<h1>Hello and welcome, ${name}</h1>`;
     })
-</script>
+</script>-->
 </html>
